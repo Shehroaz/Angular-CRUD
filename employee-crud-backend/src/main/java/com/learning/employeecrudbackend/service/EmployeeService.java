@@ -33,11 +33,12 @@ public class EmployeeService {
         Employee employee = employeeRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not exists with id : " + id));
 
-        Employee toBeUpdated = new Employee();
-        toBeUpdated.setEmail(employee.getEmail());
-        toBeUpdated.setFirstName(employee.getFirstName());
-        toBeUpdated.setLastName(employee.getLastName());
-
+        Employee toBeUpdated = Employee.builder()
+                .firstName(employeeDetails.getFirstName())
+                .lastName(employeeDetails.getLastName())
+                .email(employeeDetails.getEmail())
+                .build();
+        
         return employeeRepo.save(toBeUpdated);
     }
 
